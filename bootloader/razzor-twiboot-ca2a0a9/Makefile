@@ -15,6 +15,10 @@ ifeq ($(MCU_TARGET), atmega168)
 BOOTLOADER_START=0x3C00
 AVRDUDE_MCU=m168
 endif
+ifeq ($(MCU_TARGET), atmega328p)
+BOOTLOADER_START=0x7000
+AVRDUDE_MCU=atmega328p
+endif
 
 DEFS           = -DAPP_END=$(BOOTLOADER_START)
 LIBS           =

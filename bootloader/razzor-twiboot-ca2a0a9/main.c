@@ -61,6 +61,10 @@
 #define SIGNATURE_BYTES		0x1E, 0x94, 0x0B
 #define APP_END				0x3c00
 
+#elif defined (__AVR_ATmega328P__)
+#define VERSION_STRING		"TWIBOOT m328v2.1"
+#define SIGNATURE_BYTES		0x1E, 0x95, 0x0F
+
 #else
 #error MCU not supported
 #endif
@@ -230,7 +234,7 @@ static void write_eeprom_byte(uint8_t val)
 #if defined (__AVR_ATmega8__)
 	EECR |= (1<<EEMWE);
 	EECR |= (1<<EEWE);
-#elif defined (__AVR_ATmega88__) || defined (__AVR_ATmega168__) || defined (__AVR_ATmega168P__)
+#elif defined (__AVR_ATmega88__) || defined (__AVR_ATmega168__) || defined (__AVR_ATmega168P__) || defined (__AVR_ATmega328P__)
 	EECR |= (1<<EEMPE);
 	EECR |= (1<<EEPE);
 #endif
@@ -453,7 +457,7 @@ static void (*jump_to_app)(void) __attribute__ ((noreturn)) = 0x0000;
  * system reset. So disable it as soon as possible.
  * automagically called on startup
  */
-#if defined (__AVR_ATmega88__) || defined (__AVR_ATmega168__) || defined (__AVR_ATmega168P__)
+#if defined (__AVR_ATmega88__) || defined (__AVR_ATmega168__) || defined (__AVR_ATmega168P__) || defined (__AVR_ATmega328P__)
 void disable_wdt_timer(void) __attribute__((naked, section(".init3")));
 void disable_wdt_timer(void)
 {
@@ -477,7 +481,7 @@ int main(void)
 
 	TCCR0 = (1<<CS02) | (1<<CS00);
 	TIMSK = (1<<TOIE0);
-#elif defined (__AVR_ATmega88__) || defined (__AVR_ATmega168__) || defined (__AVR_ATmega168P__)
+#elif defined (__AVR_ATmega88__) || defined (__AVR_ATmega168__) || defined (__AVR_ATmega168P__) || defined (__AVR_ATmega328P__)
 	MCUCR = (1<<IVCE);
 	MCUCR = (1<<IVSEL);
 
@@ -504,7 +508,7 @@ int main(void)
 
 	GICR = (1<<IVCE);
 	GICR = (0<<IVSEL);
-#elif defined (__AVR_ATmega88__) || defined (__AVR_ATmega168__) || defined (__AVR_ATmega168P__)
+#elif defined (__AVR_ATmega88__) || defined (__AVR_ATmega168__) || defined (__AVR_ATmega168P__) || defined (__AVR_ATmega328P__)
 	TIMSK0 = 0x00;
 	TCCR0B = 0x00;
 
