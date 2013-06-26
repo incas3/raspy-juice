@@ -69,7 +69,7 @@
 #error MCU not supported
 #endif
 
-#define RASPY_JUICE		1
+#define RASPY_JUICE		0
 #define EEPROM_SUPPORT		0
 
 #if (RASPY_JUICE)

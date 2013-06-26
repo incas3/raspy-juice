@@ -1,6 +1,6 @@
 PRG            = twiboot
 OBJ            = main.o
-MCU_TARGET     = atmega88
+MCU_TARGET     = atmega328p
 OPTIMIZE       = -Os
 
 ifeq ($(MCU_TARGET), atmega8)
@@ -20,7 +20,7 @@ BOOTLOADER_START=0x7000
 AVRDUDE_MCU=atmega328p
 endif
 
-DEFS           = -DAPP_END=$(BOOTLOADER_START)
+DEFS           = -DAPP_END=$(BOOTLOADER_START) -DF_CPU=8000000L
 LIBS           =
 
 # Override is only needed by avr-lib build system.
